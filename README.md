@@ -1,6 +1,6 @@
 # GIT ADVANCED EXERCISES
 
-Part 1: Refining Git History (10 Challenges)
+## Part 1: Refining Git History (10 Challenges)
 
 Missing File Fix:
 
@@ -379,3 +379,144 @@ f07739a HEAD@{42}: rebase: fast-forward
 f07739a HEAD@{47}: rebase (squash): Squashed two commits
 ```
 
+## Part 2: Branching Basics
+
+1. Feature Branch Creation:
+
+Imagine working on a new feature named ft/new-feature. Let's establish a dedicated branch for it.
+Challenge: Create a new branch named ft/new-feature and switch to that branch.
+
+```
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ git checkout -b ft/new-feature
+Switched to a new branch 'ft/new-feature'
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (ft/new-feature)
+$
+```
+
+2. Working on the Feature Branch:
+
+Create a new file named feature.txt in this branch and add some content to it.
+Commit these changes with a descriptive message like "Implemented core functionality for new feature".
+
+```
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ git checkout -b ft/new-feature
+Switched to a new branch 'ft/new-feature'
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (ft/new-feature)
+$
+```
+
+3.Switching Back and Making More Changes:
+
+It's common to switch between branches during development.
+Challenge: Switch back to the main branch (previously master) and create a new file named readme.txt with some introductory content. Commit these changes with a message like "Updated project readme".
+
+```
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (ft/new-feature)
+$ git switch main
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ touch readme.txt
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ git add .
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ git commit -m "Updated project readme"
+[main 751fdbc] Updated project readme
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 readme.txt
+
+```
+5. Branch Deletion:
+
+After merging or completing work on a feature branch, it's good practice to remove it.
+Challenge: Delete the ft/new-feature branch once you're confident the changes are integrated into main.
+
+```
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ git branch -D ft/new-feature
+Deleted branch ft/new-feature (was 06a24d9).
+```
+
+6. Creating a Branch from a Commit:
+
+You can also create a branch from a specific commit in your history.
+Challenge: Use git checkout -b ft/new-branch-from-commit commit-hash (adjust the commit hash as needed) to create a new branch named ft/new-branch-from-commit starting from the commit two positions back in your history. learn more here
+
+```
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ git checkout -b ft/new-branch-from-commit 4371ffe
+Switched to a new branch 'ft/new-branch-from-commit'
+```
+
+7. Branch Merging:
+
+Now that you've completed work on your feature branch, it's time to integrate it into main.
+Challenge: Merge the ft/new-branch-from-commit branch into the main branch. Address any merge conflicts that might arise.
+
+```
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ git merge ft/new-branch-from-commit
+Already up to date.
+```
+
+8. Branch Rebasing:
+
+Rebasing is another method to integrate changes from a feature branch. It rewrites your branch history by incorporating its commits on top of the latest commit in the target branch (main in our case).
+Challenge: Try rebasing the ft/new-branch-from-commit branch onto the main branch. Remember, rebasing rewrites history, so use it with caution, especially in shared repositories. learn more about rebasing here.
+
+```
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ git checkout ft/new-branch-from-commit
+Switched to branch 'ft/new-branch-from-commit'
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (ft/new-branch-from-commit)
+$ git rebase main
+Successfully rebased and updated refs/heads/ft/new-branch-from-commit.
+```
+
+9. Renaming Branches:
+
+Branch names can sometimes evolve. Let's rename ft/new-branch-from-commit to a more descriptive name.
+Challenge: Use git branch -m ft/new-branch-from-commit ft/improved-branch-name to rename your branch.
+
+```
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (ft/new-branch-from-commit)
+$ git branch -m ft/new-branch-from-commit ft/improved-branch-name
+
+```
+
+10. Checking Out Detached HEAD:
+
+In specific situations, you might need to detach HEAD from your current branch. Research git checkout <commit-hash> (replace with the desired commit hash) to understand this concept.
+
+```
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ git checkout 4371ffe
+Note: switching to '4371ffe'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 4371ffe Implemented test 5
+```
+
+## Part 3: Advanced Workflows
