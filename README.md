@@ -733,4 +733,23 @@ Collaboration often involves pulling changes from the remote repository made by 
 Challenge: Navigate to Github and make some changes inside your README file that you created on your main branch and in your local environment use git pull origin <branch-name> (replace <branch-name> with the actual branch you want to pull) to fetch changes from the remote repository's main branch and merge them into your local main branch. Address any merge conflicts that might arise.
 
 ```
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ git pull origin main
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), 3.36 KiB | 215.00 KiB/s, done.
+From https://github.com/Ntwalii/Git-exercises-advanced
+ * branch            main       -> FETCH_HEAD
+   0fc18ca..73373a4  main       -> origin/main
+Updating 0fc18ca..73373a4
+Fast-forward
+ README.md | 214 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 214 insertions(+)
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ git merge
+Already up to date.
 ```
