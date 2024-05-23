@@ -520,3 +520,217 @@ HEAD is now at 4371ffe Implemented test 5
 ```
 
 ## Part 3: Advanced Workflows
+
+Stashing Changes:
+
+1.Imagine you're working on some changes in the main branch but need to attend to something urgent. You don't want to lose your uncommitted work.
+Challenge: Stash your current changes in the main branch using git stash.
+
+```
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ git stash
+No local changes to save
+```
+2.Retrieving Stashed Changes:
+
+Later, when you're ready to resume working on those stashed changes, you can retrieve them.
+Challenge: Apply the most recent stash back onto the main branch using git stash pop.
+
+```
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ git stash pop
+No stash entries found.
+```
+
+3.Branch Merging Conflicts (Continued):
+
+Merge conflicts can arise when the same lines of code are modified in both branches being merged.
+Challenge: Simulate a merge conflict scenario (you can create conflicting changes in a file on both main and a new feature branch). Then, try merging again and resolve the conflicts manually using your text editor.
+
+```
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ vi readme.txt
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ git add .
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ git commit -m "New conflict"
+[main 5ccbe1a] New conflict
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ git switch ft/new-feature
+Switched to branch 'ft/new-feature'
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (ft/new-feature)
+$ vi readme.txt
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (ft/new-feature)
+$ git add .
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (ft/new-feature)
+$ git commit -m "New edit on branch"
+[ft/new-feature feb24f7] New edit on branch
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (ft/new-feature)
+$ git switch main
+Switched to branch 'main'
+Your branch is ahead of 'origin/main' by 4 commits.
+  (use "git push" to publish your local commits)
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ git merge ft/new-feature
+Auto-merging readme.txt
+CONFLICT (content): Merge conflict in readme.txt
+Automatic merge failed; fix conflicts and then commit the result.
+
+```
+4.Resolving Merge Conflicts with a Merge Tool:
+
+Explore using a merge tool like git mergetool to help you visualize and resolve merge conflicts more efficiently.
+
+```
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main|MERGING)
+$ git merge ft/new-feature
+error: Merging is not possible because you have unmerged files.
+hint: Fix them up in the work tree, and then use 'git add/rm <file>'
+hint: as appropriate to mark resolution and make a commit.
+fatal: Exiting because of an unresolved conflict.
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main|MERGING)
+$ git mergetool
+
+This message is displayed because 'merge.tool' is not configured.
+See 'git mergetool --tool-help' or 'git help config' for more details.
+'git mergetool' will now attempt to use one of the following tools:
+opendiff kdiff3 tkdiff xxdiff meld tortoisemerge gvimdiff diffuse diffmerge ecmerge p4merge araxis bc codecompare smerge emerge vimdiff nvimdiff
+Merging:
+readme.txt
+
+Normal merge conflict for 'readme.txt':
+  {local}: modified file
+  {remote}: modified file
+Hit return to start merge resolution tool (vimdiff):
+4 files to edit
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main|MERGING)
+$ git add .
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main|MERGING)
+$ git commit -m "Conflict resolved"
+[main 1b9e812] Conflict resolved
+
+```
+
+5.Understanding Detached HEAD State:
+
+Detached HEAD refers to a state where your working directory is not associated with any specific branch. Research the implications and how to recover from this state using commands like git checkout <branch-name>.
+
+```
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ git checkout 7c1f0ac
+Note: switching to '7c1f0ac'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 7c1f0ac Edit on main
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced ((7c1f0ac...))
+$ git checkout main
+Previous HEAD position was 7c1f0ac Edit on main
+Switched to branch 'main'
+Your branch is ahead of 'origin/main' by 6 commits.
+  (use "git push" to publish your local commits)
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$
+```
+
+6.Ignoring Files/Directories:
+
+You might have files or directories you don't want to track in Git. Create a .gitignore file to specify these exclusions.
+Challenge: Add a pattern like /tmp to your .gitignore file to exclude all temporary files and directories from version control. more about ignoring files here
+
+```
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main|REBASE 6/15)
+$ vi .gitignore
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main|REBASE 6/15)
+$ git add .
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main|REBASE 6/15)
+$ git commit -m "Git ignore"
+[detached HEAD bf15ecd] Git ignore
+ 1 file changed, 1 insertion(+)
+ create mode 100644 .gitignore
+```
+
+7.Working with Tags:
+
+Tags act like bookmarks in your Git history. Create a tag to mark a specific point in your development.
+Challenge: Use git tag v1.0 to create a tag named v1.0 on the current commit in your main branch. git tags
+
+```
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main|REBASE 6/15)
+$ git tag v1.0
+```
+
+8.Listing and Deleting Tags:
+
+Challenge: Use git tag to list all existing tags. Then, use git tag -d <tag-name> to delete a specific tag (replace <tag-name> with the actual tag you want to remove).
+
+```
+$ git tag
+v1.0
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main|REBASE 6/15)
+$ git tag -d v1.0
+Deleted tag 'v1.0' (was bf15ecd)
+
+```
+
+9.Pushing Local Work to Remote Repositories:
+
+Once you're happy with your local changes and branches, it's time to share them with others.
+Challenge: Assuming you've set up a remote repository on a Git hosting platform (like GitHub), push the changes with the actual branch you want to push to push your local branch to the remote repository.
+
+```
+
+Ntwali@DESKTOP-CP6B3NG MINGW64 ~/Desktop/Personal/The Gym/Git-exercises-advanced (main)
+$ git push
+Enumerating objects: 21, done.
+Counting objects: 100% (21/21), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (14/14), done.
+Writing objects: 100% (19/19), 1.60 KiB | 234.00 KiB/s, done.
+Total 19 (delta 8), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (8/8), completed with 1 local object.
+To https://github.com/Ntwalii/Git-exercises-advanced.git
+   724b9b8..0fc18ca  main -> main
+
+```
+
+10.Pulling Changes from Remote Repositories:
+
+Collaboration often involves pulling changes from the remote repository made by others.
+Challenge: Navigate to Github and make some changes inside your README file that you created on your main branch and in your local environment use git pull origin <branch-name> (replace <branch-name> with the actual branch you want to pull) to fetch changes from the remote repository's main branch and merge them into your local main branch. Address any merge conflicts that might arise.
+
+```
+```
